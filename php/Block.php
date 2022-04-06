@@ -87,7 +87,7 @@ class Block {
 				<li><?php echo 'There are ' . $post_count . ' ' .
 					  $post_type_object->labels->name . '.'; ?></li>
 			<?php endforeach;	?>
-			</ul><p><?php echo 'The current post ID is ' . $_GET['post_id'] . '.'; ?></p>
+			</ul><p><?php echo 'The current post ID is ' . get_the_ID() . '.'; ?></p>
 
 			<?php
 			$query = new WP_Query(  array(
@@ -105,12 +105,12 @@ class Block {
 				),
                 'tag'  => 'foo',
                 'category_name'  => 'baz',
-				  'post__not_in' => [ get_the_ID() ],
+				'post__not_in' => [ get_the_ID() ],
 			));
-
+			$count = $query->found_posts;
 			if ( $query->have_posts() ) :
 				?>
-				 <h2>5 posts with the tag of foo and the category of baz</h2>
+				 <h2><?php echo $count; ?> posts with the tag of foo and the category of baz</h2>
                 <ul>
                 <?php
 
